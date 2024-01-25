@@ -2,8 +2,8 @@ package ex3a;
 
 import java.util.*;
 
-class Stage{//マップを作成
-    static Map<String,List<String>> childNodeLists = Mao.of(
+class State{//マップを作成
+    static Map<String,List<String>> childNodeLists = Map.of(
         "A", List.of("B","C"),
         "B", List.of("D","E"),
         "C", List.of("F","G"));
@@ -15,7 +15,7 @@ class Stage{//マップを作成
 
     String current;
 
-    Stage(string current){//現在のノードを設定
+    State(String current){//現在のノードを設定
         this.current = current;
     }
 
@@ -24,20 +24,20 @@ class Stage{//マップを作成
     }
 
     boolean isGoal(){//ゴールかどうか判定
-        return getMove().isEmpty();
+        return getMoves().isEmpty();
     }
     
-    List<Stage> getMove(){//次のノードを取得
-        return Stage.childNodeLists.getOrDefault(this.current, new  ArrayList<>());
+    List<String> getMoves(){//次のノードを取得
+        return State.childNodeLists.getOrDefault(this.current, new  ArrayList<>());
     }
 
-    Stage perform(String move){//次のノードを設定し、移動する
-        return new Stage(move);
+    State perform(String move){//次のノードを設定し、移動する
+        return new State(move);
     }
 }
 
 class Eval {//評価値を計算する
-    float value(Stage state){
+    float value(State state){
         return State.values.getOrDefault(state.current, Float.NaN);
     }
 }//時間45分
